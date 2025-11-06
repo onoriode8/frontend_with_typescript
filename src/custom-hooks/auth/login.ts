@@ -22,7 +22,7 @@ const useLogin = () => {
         setPassword(e.target.value)
     }
 
-    const loginHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             setLoading(true)

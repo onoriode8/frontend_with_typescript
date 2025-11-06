@@ -34,7 +34,7 @@ const useRegister = () => {
         setPassword(e.target.value)
     }
 
-    const registerHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             setLoading(true)

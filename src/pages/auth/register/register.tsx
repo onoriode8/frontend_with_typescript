@@ -9,11 +9,15 @@ const Register = () => {
 
     return (
         <div className='signup_container'>
+            {loading && <p>Loading...</p>}
+            {error.length !== 0 ? <p>{error}</p>: null} 
             <span>Signup</span>
-            <form>
-                <input type="text" placeholder="username" 
+            <form onSubmit={(e) => registerHandler(e)}>
+                <input type="name" placeholder="name" 
+                    onChange={(e) => setNameHandler(e)} />
+                <input type="username" placeholder="username" 
                     onChange={(e) => setUsernameHandler(e)} />
-                <input type="text" placeholder="email" 
+                <input type="email" placeholder="email" 
                     onChange={(e) => setEmailHandler(e)}/>
                 <input type="psw" placeholder="password" 
                     onChange={(e) => setPasswordHandler(e)}/>
