@@ -45,12 +45,12 @@ const useRegister = () => {
             setLoading(false)
             console.log("SERVER_DATA FROM REGISTER", data)
             updateUser(data)
-        } catch(err: unknown) {
+        } catch(err) {
             setLoading(false)
             // if(instanceof err) {
                 
             // }
-            setError(err.message || "Something went wrong.")
+            setError("Something went wrong.")
             setTimeout(() => {
                 setError("")
             }, 3000);
