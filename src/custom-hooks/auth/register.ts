@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { updateUser } from "../../state-management/createslice/user";
 
@@ -11,29 +11,35 @@ const useRegister = () => {
     const [name, setName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [username, setUsername] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
 
-    const setNameHandler = (e: Event) => {
+
+    const setNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log("EVENT Name TRIGGERED", e)
         // if(!e.target.value) return
         setName(e.target.value)
     }
-    const setEmailHandler = (e: Event) => {
+    const setEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log("EVENT Email TRIGGERED", e)
         // if(!e.target.value) return
         setEmail(e.target.value)
     }
-    const setUsernameHandler = (e: Event) => {
+    const setUsernameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log("EVENT Username TRIGGERED", e)
         // if(!e.target.value) return
         setUsername(e.target.value)
     }
 
-    const registerHandler = async (e: Event) => {
+    const setPasswordHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
+    }
+
+    const registerHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         try {
             setLoading(true)
             const data = await axios.post("/user", {
-                name, email, username
+                name, email, username, password
             })
 
             setLoading(false)
@@ -52,7 +58,7 @@ const useRegister = () => {
     }
 
     return { 
-        error, loading, 
+        error, loading, setPasswordHandler,
         registerHandler, setNameHandler,
         setEmailHandler, setUsernameHandler
     }
