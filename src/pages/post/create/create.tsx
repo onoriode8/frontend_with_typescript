@@ -1,24 +1,30 @@
 
 
+import useCreatePost from '../../../custom-hooks/post/create';
 import './create.css'
 
 
-const create = () => (
-    <div>
-        <div>
-            <form>
+const Create = () => {
+    const { error, loading,
+        setTitleHandler, setDescriptionHandler, createPostHandler } = useCreatePost()
+    return (
+        <div className='create_container'>
+            <form onSubmit={(e) => createPostHandler(e)}>
+            {loading && <p>Loading...</p>}
+            {error.length !== 0 ? <p>{error}</p>: null} 
+            <span>Create Post</span>
                 <div>
                     <label>Title</label>
-                    <input type="text" />
+                    <input type="text" onChange={(e) => setTitleHandler(e)}/>
                 </div>
                 <div>
                     <label>Description</label>
-                    <textarea />
+                    <textarea onChange={(e) => setDescriptionHandler(e)}/>
                 </div>
                 <button>Create Post</button>
             </form>
         </div>
-    </div>
-);
+    );
+}
 
-export default create
+export default Create
