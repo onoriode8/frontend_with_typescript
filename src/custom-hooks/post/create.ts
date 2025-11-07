@@ -11,12 +11,10 @@ const useCreatePost = () => {
 
 
     const setTitleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("TITLE", e.target.value)
         setTitle(e.target.value)
     }
 
     const setDescriptionHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        console.log("Description", e.target.value)
         setDescription(e.target.value)
     }
 
