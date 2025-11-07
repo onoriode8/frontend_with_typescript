@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+// interface UserProps {
+//     id: number,
+//     name: string,
+//     email: string,
+//     username: string,
+//     posts: []
+// }
 
 
 const userSlice = createSlice({
