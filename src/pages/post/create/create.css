@@ -11,6 +11,14 @@
     flex-direction: column;
 }
 
+.create_container form span {
+    font-weight: 200;
+    font-size: large;
+    margin-bottom: 10px;
+    border-bottom: 3px dashed aqua;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
 .create_container form div input {
     width: 350px;
     outline: none;
@@ -25,7 +33,7 @@
     font-weight: 200;
     font-size: large;
     margin-bottom: 10px;
-    font-family:Georgia, 'Times New Roman', Times, serif
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
 .create_container form div textarea {
