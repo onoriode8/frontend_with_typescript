@@ -1,0 +1,70 @@
+.create_container form {
+    display: flex;
+    margin-top: 150px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.create_container form div {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+}
+
+.create_container form div input {
+    width: 350px;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.create_container form div label {
+    font-weight: 200;
+    font-size: large;
+    margin-bottom: 10px;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.create_container form div textarea {
+    width: 350px;
+    outline: none;
+    height: 100px;
+}
+
+.create_container form button {
+    width: 350px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+    border-radius: 8px;
+    background-color: aqua;
+}
+
+@media(max-width: 490px) {
+    .create_container form {
+        margin-top: 200px;
+    }
+}
+
+@media(max-width: 376px) {
+    .create_container form div input {
+        width: 300px;
+        border-bottom: 2px dashed #ccc
+    }
+    .create_container form div textarea {
+        width: 300px;
+        outline: none;
+        height: 70px;
+        border-top: none;
+        border-left: 2px dashed #ccc;
+        border-right: 2px dashed #ccc;
+        border-bottom: 2px dashed #ccc
+    }
+    .create_container form button {
+        width: 300px;
+    }
+}
