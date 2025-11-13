@@ -1,6 +1,6 @@
 .home_container {
-    margin-top: 150px;
     display: flex;
+    margin-top: 150px;
     justify-content: space-around;
 }
 
