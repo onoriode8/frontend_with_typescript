@@ -1,27 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
-// interface UserProps {
-//     id: number,
-//     name: string,
-//     email: string,
-//     username: string,
-//     posts: []
-// }
 
+interface PostsProps {
+    id: number | null
+    title: string | null
+    description: string | null
+    creatorId: number | null
+}
+
+export interface UserAction {
+    id: number | null
+    name: string | null
+    email: string | null 
+    username: string | null
+    posts: PostsProps[] | null
+}
+
+interface UserProps {
+    user: {
+        id: number | null,
+        name: string | null,
+        email: string | null,
+        username: string | null,
+        posts: PostsProps[] | null
+    }
+}
+
+const initialState: UserProps = {
+    user: {
+        id: 1,
+        name: null,
+        email: null,
+        username:  null,
+        posts: [] 
+    }
+}
 
 const userSlice = createSlice({
     name: "user",
-    initialState: {
-        user: {
-            id: null,
-            name: null,
-            email: null,
-            username: null,
-            posts: null
-        }
-    },
+    initialState,
     reducers: {
-        updateUser: (state, action) => {
+        updateUser: (state, action: PayloadAction<UserAction>) => {
             if(!action.payload) return
             const { id, name, email, username, posts } = action.payload
             state.user.id = id
