@@ -1,9 +1,13 @@
 
 import Header from '../pages/header/header'
 
-const layout = () => (
+interface layoutProps {
+    userId: number | null
+}
+
+const layout: React.FC<layoutProps> = ({ userId }) => (
     <div>
-        <Header />
+        <Header userId={userId} />
     </div>
 );
 
