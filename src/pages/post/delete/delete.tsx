@@ -1,19 +1,22 @@
-
+import useDelete from '../../../custom-hooks/post/delete'
 
 import './delete.css'
 
 
-const deletePost = () => (
-    <div>
+const DeletePost = () => {
+    const { error, loading, deletePostHandler } = useDelete()
+    return (
         <div>
-            <p>You sure you want to delete</p>
-            <div>
-                <p>{} title</p>
-                <p>{} description</p>
+            <div className="deletePost_container">
+                <p>You sure you want to delete ?</p>
+                <div>
+                    <p>{}</p>
+                    <p>{}</p>
+                </div>
+                <button type="submit">Delete Post</button>
             </div>
-            <button>Delete Post</button>
         </div>
-    </div>
-);
+    );
+}
 
-export default deletePost;
+export default DeletePost;
