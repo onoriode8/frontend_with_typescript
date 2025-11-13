@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { updateUser } from "../../state-management/createslice/user";
+import type { AppDispatch } from "../../state-management/store/store";
 
 
 const useLogin = () => {
@@ -11,10 +14,10 @@ const useLogin = () => {
     const [userData, setUserData] = useState<string>("")
     const [password, setPassword] = useState<string>("")
 
+    const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate();
 
     const setUserDataHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("EVENT setUserData TRIGGERED", e)
-        // if(!e.target.value) return
         setUserData(e.target.value)
     }
 
@@ -24,20 +27,19 @@ const useLogin = () => {
 
     const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if(loading) return
         try {
             setLoading(true)
-            const data = await axios.post("/user/login", {
+            const data = await axios.post("http:localhost:5000/user/login", {
                 userData, password
             })
-
             setLoading(false)
             console.log("SERVER_DATA FROM Login", data)
-            updateUser(data)
+            dispatch(updateUser(data))
+            navigate("/home")
+            window.location.reload()
         } catch(err) {
             setLoading(false)
-            // if(instanceof err) {
-                
-            // }
             setError("Something went wrong.")
             setTimeout(() => {
                 setError("")
