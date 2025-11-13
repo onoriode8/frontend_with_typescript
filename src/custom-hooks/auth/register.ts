@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { updateUser } from "../../state-management/createslice/user";
+import type { AppDispatch } from "../../state-management/store/store";
 
 
 const useRegister = () => {
@@ -13,20 +16,16 @@ const useRegister = () => {
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
 
+    const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate();
 
     const setNameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("EVENT Name TRIGGERED", e)
-        // if(!e.target.value) return
         setName(e.target.value)
     }
     const setEmailHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("EVENT Email TRIGGERED", e)
-        // if(!e.target.value) return
         setEmail(e.target.value)
     }
     const setUsernameHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log("EVENT Username TRIGGERED", e)
-        // if(!e.target.value) return
         setUsername(e.target.value)
     }
 
@@ -36,20 +35,20 @@ const useRegister = () => {
 
     const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if(loading) return
+        console.log("CLICKED")
         try {
             setLoading(true)
-            const data = await axios.post("/user", {
+            const data = await axios.post("http:localhost:5000/user/create/account", {
                 name, email, username, password
             })
-
             setLoading(false)
             console.log("SERVER_DATA FROM REGISTER", data)
-            updateUser(data)
+            dispatch(updateUser(data))
+            navigate("/home")
+            window.location.reload()
         } catch(err) {
             setLoading(false)
-            // if(instanceof err) {
-                
-            // }
             setError("Something went wrong.")
             setTimeout(() => {
                 setError("")
