@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 
 import useRegister from '../../../custom-hooks/auth/register';
 import './register.css'
@@ -19,9 +20,10 @@ const Register = () => {
                     onChange={(e) => setUsernameHandler(e)} />
                 <input type="email" placeholder="email" 
                     onChange={(e) => setEmailHandler(e)}/>
-                <input type="psw" placeholder="password" 
+                <input type="password" placeholder="password" 
                     onChange={(e) => setPasswordHandler(e)}/>
                 <button type="submit">Signup</button>
+                <p>Already have account owner ? <NavLink to="/">Login</NavLink></p>
             </form>
         </div>
     );
