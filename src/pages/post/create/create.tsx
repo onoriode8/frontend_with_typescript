@@ -10,8 +10,8 @@ const Create = () => {
     return (
         <div className='create_container'>
             <form onSubmit={(e) => createPostHandler(e)}>
-            {loading && <p>Loading...</p>}
-            {error.length !== 0 ? <p>{error}</p>: null} 
+            {loading && <p style={{textAlign: "center"}}>Loading...</p>}
+            {error.length !== 0 ? <p style={{textAlign: "center", color: "red"}}>{error}</p>: null} 
             <span>Create Post</span>
                 <div>
                     <label>Title</label>
@@ -21,7 +21,7 @@ const Create = () => {
                     <label>Description</label>
                     <textarea onChange={(e) => setDescriptionHandler(e)}/>
                 </div>
-                <button>Create Post</button>
+                <button type='submit'>Create Post</button>
             </form>
         </div>
     );
