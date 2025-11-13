@@ -1,3 +1,109 @@
 .signup_container {
+    display: flex;
+    margin-top: 150px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup_container span {
+    font-size: x-large;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.signup_container form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.signup_container form input {
+    width: 450px;
+    outline: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-size: larger;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid aqua;
+}
+
+.signup_container form button {
+    width: 450px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    padding-top: 15px;
+    font-size: x-large;
+    border-radius: 10px;
+    padding-bottom: 15px;
+    background-color: aqua;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@media(max-width: 490px) {
+    .signup_container {
+        margin-top: 170px;
+    }
+}
+
+@media(max-width: 482px) {
+    .signup_container form input {
+        width: 350px;
+    }
+
+    .signup_container form button {
+        width: 350px;
+    }
+}
+
+@media(max-width: 380px) {
+    .signup_container span {
+        font-size: large;
+    }
     
+    .signup_container form input {
+        width: 300px;
+        font-size: medium;
+    }
+
+    .signup_container form button {
+        width: 300px;
+        font-size: medium;
+    }
+}
+
+@media(max-width: 300px) {
+    .signup_container span {
+        font-size: large;
+    }
+    
+    .signup_container form input {
+        width: 250px;
+        font-size: medium;
+    }
+
+    .signup_container form button {
+        width: 250px;
+        font-size: medium;
+    }
+}
+
+@media(max-width: 260px) {
+    .signup_container span {
+        font-size: large;
+    }
+    
+    .signup_container form input {
+        width: 200px;
+        font-size: medium;
+    }
+
+    .signup_container form button {
+        width: 200px;
+        font-size: medium;
+    }
 }
