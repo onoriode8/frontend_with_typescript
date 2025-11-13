@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import useLogin from '../../../custom-hooks/auth/login';
 
 import './login.css'
@@ -14,9 +15,10 @@ const Login = () => {
             <form onSubmit={(e) => loginHandler(e)}>
                 <input type="text" placeholder="username or email" 
                     onChange={(e) => setUserDataHandler(e)} />
-                <input type="psw" placeholder="password" 
+                <input type="password" placeholder="password" 
                     onChange={(e) => setPasswordHandler(e)} />
                 <button type="submit">Login</button>
+                <p>Don't have an account ? Create one <NavLink to="/signup">Signup</NavLink></p>
             </form>
         </div>
     );
