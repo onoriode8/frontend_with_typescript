@@ -1,0 +1,105 @@
+.deletePost_container {
+    text-align: center;
+    margin-top: 150px;
+    background-color: aqua;
+    margin-right: 600px;
+    margin-left: 600px;
+    padding-top: 20px;
+    border-radius: 8px;
+    padding-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.deletePost_container div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.deletePost_container button {
+    width: 300px;
+    border: none;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+@media(max-width: 1530px) {
+    .deletePost_container {
+        margin-right: 500px;
+        margin-left: 500px;
+    }
+}
+
+@media(max-width: 1340px) {
+    .deletePost_container {
+        margin-right: 400px;
+        margin-left: 400px;
+    }
+}
+
+@media(max-width: 1130px) {
+    .deletePost_container {
+        margin-right: 300px;
+        margin-left: 300px;
+    }
+}
+
+@media(max-width: 930px) {
+    .deletePost_container {
+        margin-right: 200px;
+        margin-left: 200px;
+    }
+}
+
+@media(max-width: 740px) {
+    .deletePost_container {
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+}
+
+@media(max-width: 540px) {
+    .deletePost_container {
+        margin-right: 50px;
+        margin-left: 50px;
+    }
+}
+
+@media(max-width: 490px) {
+    .deletePost_container {
+        margin-top: 300px;
+    }
+}
+
+@media(max-width: 430px) {
+    .deletePost_container {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
+@media(max-width: 350px) {
+    .deletePost_container button {
+        width: 200px;
+    }
+}
+
+@media(max-width: 242px) {
+    .deletePost_container button {
+        width: 150px;
+    }
+}
+
+@media(max-width: 200px) {
+    .deletePost_container {
+        margin-right: 1px;
+        margin-left: 1px;
+    }
+    .deletePost_container button {
+        width: 120px;
+    }
+}
