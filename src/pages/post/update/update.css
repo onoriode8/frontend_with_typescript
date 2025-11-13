@@ -1,0 +1,52 @@
+.updatePost_container {
+    margin-top: 150px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.updatePost_container form div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.updatePost_container form input {
+    width: 350px;
+    outline: none;
+    padding-top: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border: 1px solid aqua;
+}
+
+.updatePost_container form button {
+    width: 350px;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+    padding-top: 11px;
+    border-radius: 8px;
+    background: aqua;
+    padding-bottom: 11px;
+}
+
+@media(max-width: 490px) {
+    .updatePost_container {
+        margin-top: 250px;
+    }
+}
+
+@media(max-width: 370px) {
+    .updatePost_container form input,
+    .updatePost_container form button {
+        width: 300px;
+    }
+}
+
+@media(max-width: 315px) {
+    .updatePost_container form input,
+    .updatePost_container form button {
+        width: 250px;
+    }
+}
