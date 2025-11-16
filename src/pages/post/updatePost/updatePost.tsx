@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { MdCreate } from "react-icons/md";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { IoMdArrowBack } from "react-icons/io";
 
 import type { RootState, AppDispatch } from '../../../state-management/store/store'
@@ -11,22 +11,24 @@ import './updatePost.css'
 
 const UpdatePost = () => {
     const postState = useSelector((p:RootState) => p.posts.posts)
-    const pushPostState = useSelector((p:RootState) => p.posts.pushPost)
 
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
-    console.log("CHECK", postState)
-    const pushIdToReducerHandler = (id: number, path: string) => {
-        console.log("clicked", id)
+    
+    const pushIdToReducerHandler = (id: number, title:string, description: string, path: string) => {
         const postId = id
         const data = {
-            id: postId, //check later and debug where the error comming for page reload when navigated.
-            title: pushPostState.title,
-            description: pushPostState.description
+            id: postId,
+            title: title,
+            description: description
         }
         dispatch(pushPostHandler(data))
-        navigate(`/${path}/${postId}`)
+        sessionStorage.setItem("post", JSON.stringify(data))
+        const varPath = `${path}/${postId}`
+        navigate(`${varPath}`)
+        window.location.reload()
     }
+
     return (
         <div>
             <h4 className="deletePost__h4">Update Post</h4>
@@ -39,7 +41,7 @@ const UpdatePost = () => {
                     </div>
                     <div>
                         <IoMdArrowBack onClick={() => navigate(-1)} />
-                        <MdCreate onClick={() => pushIdToReducerHandler(postState.id, '/update')} />
+                        <MdCreate onClick={() => pushIdToReducerHandler(p.id, p.title, p.description, '/update')} />
                     </div>
                 </div>)}
             </div>
