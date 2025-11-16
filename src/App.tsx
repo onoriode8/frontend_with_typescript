@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom'
+import React, { useEffect, Suspense } from 'react';
+import { Routes, Route } from 'react-router'
 import { useSelector } from 'react-redux'
 
 import Loader from './pages/loader/spinner/spinner';
@@ -17,11 +17,22 @@ const DeletePost = React.lazy(() => import("./pages/post/deletePost/deletePost")
 const UpdatePost = React.lazy(() => import("./pages/post/updatePost/updatePost"))
 
 
+interface StorageProps {
+  id: number
+  title: string,
+  description: string
+}
+
 function App() {
-  const postId = useSelector((p: RootState) => p.posts.pushPost)
+  // sessionStorage.removeItem('post')
+
+  const parsedData = sessionStorage.getItem('post');
+  const pushPost: StorageProps | null = parsedData ? JSON.parse(parsedData) : null
+
+  // const postId = useSelector((p: RootState) => p.posts.pushPost)
   const user = useSelector((u: RootState) => u.users.user)
 
-        console.log("APP STATE", postId)
+  //  console.log("APP STATE", postId)
   
   return (
     <React.Fragment>
@@ -44,11 +55,11 @@ function App() {
         <Route path={`/update`}
           element={<Suspense fallback={<Loader />}><UpdatePost /></Suspense>} />
 
-        <Route path={`/update/${postId.id}`} 
-          element={<Suspense fallback={<Loader />}><Update /></Suspense>} />
+        <Route path={`/update/${pushPost?.id}`} 
+          element={<Suspense fallback={<Loader />}><Update pushPost={pushPost} /></Suspense>} />
 
-        <Route path={`/delete/${postId.id}`}
-          element={<Suspense fallback={<Loader />}><Delete /></Suspense>} />
+        <Route path={`/delete/${pushPost?.id}`}
+          element={<Suspense fallback={<Loader />}><Delete pushPost={pushPost} /></Suspense>} />
       </Routes>}
     </React.Fragment>
   ) 
