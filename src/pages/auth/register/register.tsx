@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 import useRegister from '../../../custom-hooks/auth/register';
 import './register.css'
