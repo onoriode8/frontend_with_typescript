@@ -1,18 +1,25 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import useUpdate from '../../../custom-hooks/post/update';
-import type { RootState } from '../../../state-management/store/store';
+// import type { RootState } from '../../../state-management/store/store';
 
 
 import './update.css'
 
+interface Props {
+  pushPost: {
+    id: number
+    title: string,
+    description: string
+  }
+}
 
-const Update = () => {
+const Update: React.FC<Props> = (props) => {
     const { error, loading, message, setTitleHandler,
         updatePostHandler, setDescriptionHandler } = useUpdate();
 
-    const pushPost = useSelector((p: RootState) => p.posts.pushPost)
-console.log("UPDATE_POST COMPONENT", pushPost)
+    // const pushPost = useSelector((p: RootState) => p.posts.pushPost)
+// console.log("UPDATE_POST COMPONENT", pushPost)
     return (
         <div>
             <div className='updatePost_container'>
@@ -23,12 +30,12 @@ console.log("UPDATE_POST COMPONENT", pushPost)
                 <form onSubmit={(e) => updatePostHandler(e)}>
                     <div>
                         <label>title</label>
-                        <input type="text" placeholder={`${pushPost.title}`} 
+                        <input type="text" placeholder={`${props.pushPost.title}`} 
                             onChange={(e) => setTitleHandler(e)}/>
                     </div>
                     <div>
                         <label>description</label>
-                        <input type="text" placeholder={`${pushPost.description}`} 
+                        <input type="text" placeholder={`${props.pushPost.description}`} 
                             onChange={(e) => setDescriptionHandler(e)} />
                     </div>
                     <button type="submit">Update Post</button>
