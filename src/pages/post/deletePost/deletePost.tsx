@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { MdDelete } from "react-icons/md";
-import{ useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { IoMdArrowBack } from "react-icons/io";
 
 import type { RootState, AppDispatch} from '../../../state-management/store/store'
@@ -13,16 +13,20 @@ const DeletePost = () => {
     const postState = useSelector((p: RootState)=> p.posts.posts)
     const dispatch = useDispatch<AppDispatch>()
     const navigate = useNavigate()
-    const pushIdToReducerHandler = (id: number, path: string) => {
-        console.log("clicked")
+
+    const pushIdToReducerHandler = (id: number, title: string, description: string, path: string) => {
         const postId = id
         const data = {
             id: postId,
-            title: postState.title,
-            description: postState.description
+            title: title,
+            description: description
         }
         dispatch(pushPostHandler(data))
-        navigate(`/${path}/${postId}`);
+        // console.log("storage delete", sessionStorage.getItem('post'))
+        sessionStorage.setItem("post", JSON.stringify(data))
+        const varPath = `${path}/${postId}`
+        navigate(`${varPath}`);
+        window.location.reload()
     }
 
     return (
@@ -37,7 +41,7 @@ const DeletePost = () => {
                     </div>
                     <div>
                         <IoMdArrowBack onClick={() => navigate(-1)} />
-                        <MdDelete onClick={() => pushIdToReducerHandler(p.id, '/delete')} />
+                        <MdDelete onClick={() => pushIdToReducerHandler(p.id, p.title, p.description, '/delete')} />
                     </div>
                 </div>)}
             </div>
