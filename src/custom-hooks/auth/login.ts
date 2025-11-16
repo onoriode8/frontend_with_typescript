@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 import { updateUser } from "../../state-management/createslice/user";
 import type { AppDispatch } from "../../state-management/store/store";
@@ -30,7 +30,7 @@ const useLogin = () => {
         if(loading) return
         try {
             setLoading(true)
-            const data = await axios.post("http:localhost:5000/user/login", {
+            const data = await axios.post("http://localhost:5000/user/login", {
                 userData, password
             })
             setLoading(false)
