@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
+import BackendURL from '../../util/config';
 import { updateUser } from "../../state-management/createslice/user";
 import type { AppDispatch } from "../../state-management/store/store";
 
@@ -36,23 +37,35 @@ const useRegister = () => {
     const registerHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(loading) return
-        console.log("CLICKED")
+        if(name.length < 4 || password.length < 5 || email.length < 8 || username.length < 4) return 
         try {
             setLoading(true)
-            const data = await axios.post("http:localhost:5000/user/create/account", {
+            const response = await axios.post(`${BackendURL}/create/account/user`, {
                 name, email, username, password
+            }, {
+                withCredentials: true
             })
             setLoading(false)
-            console.log("SERVER_DATA FROM REGISTER", data)
+            console.log("SERVER_DATA FROM REGISTER", response)
+            const data = {
+                id: response.data.user.id, 
+                name: response.data.user.name, 
+                email: response.data.user.email, 
+                username: response.data.user.username,
+                posts: response.data.user.posts
+            }
             dispatch(updateUser(data))
+            localStorage.setItem("sessionId", response.data.user.id)
             navigate("/home")
-            window.location.reload()
-        } catch(err) {
+            // window.location.reload()
+        } catch (err) {
             setLoading(false)
-            setError("Something went wrong.")
-            setTimeout(() => {
-                setError("")
-            }, 3000);
+            if(axios.isAxiosError(err)) {
+                setError(err.response?.data)
+                setTimeout(() => {
+                    setError("")
+                }, 3000);
+            }
         }
     }
 
