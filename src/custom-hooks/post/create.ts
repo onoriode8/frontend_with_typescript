@@ -1,14 +1,22 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+
+import BackendURL from '../../util/config';
+import type { RootState } from '../../state-management/store/store';
+
 
 
 
 const useCreatePost = () => {
+    const id = localStorage.getItem("sessionId")
+
     const [title, setTitle] = useState<string>("")
     const [error, setError] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
     const [description, setDescription] = useState<string>("")
 
+    const userState = useSelector((u: RootState) => u.users.user)
 
     const setTitleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
@@ -25,18 +33,23 @@ const useCreatePost = () => {
         }
         try {
             setLoading(true)
-            const data = await axios.post("/user/create/post", {
+            const userId = userState.id ? userState.id : id
+            const data = await axios.post(`${BackendURL}/create/posts/${userId}`, { // add user id to the request
                 title, description
+            }, {
+                withCredentials: true
             })
             console.log("DATA FROM CREATE POST HANDLER", data);
             setLoading(false)
         } catch(err) {
             setLoading(false)
-            setError("Something went wrong")
-            console.error("ERROR OCCURRED", err)
-            setTimeout(() => {
-                setError("")
-            })
+            if(axios.isAxiosError(err)) {
+                setError(err.response?.data || "Something went wrong")
+                console.error("ERROR OCCURRED", err)
+                setTimeout(() => {
+                    setError("")
+                })
+            }
         }
     }
 
