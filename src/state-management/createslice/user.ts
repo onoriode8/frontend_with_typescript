@@ -28,7 +28,7 @@ interface UserProps {
 
 const initialState: UserProps = {
     user: {
-        id: 1,
+        id: null,
         name: null,
         email: null,
         username:  null,
@@ -42,6 +42,7 @@ const userSlice = createSlice({
     reducers: {
         updateUser: (state, action: PayloadAction<UserAction>) => {
             if(!action.payload) return
+            console.log("ACTION_PAYLOAD", action.payload);
             const { id, name, email, username, posts } = action.payload
             state.user.id = id
             state.user.name = name

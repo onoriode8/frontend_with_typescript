@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router';
+
+import Loader from '../../loader/spinner/spinner'
 import useLogin from '../../../custom-hooks/auth/login';
 
 import './login.css'
@@ -9,8 +11,8 @@ const Login = () => {
         loginHandler, setUserDataHandler } = useLogin()
     return (
         <div className='login_container'>
-            {loading && <p>Loading...</p>}
-            {error.length !== 0 ? <p>{error}</p>: null} 
+            {loading && <Loader />}
+            {error.length !== 0 ? <p style={{color: "red"}}>{error}</p>: null} 
             <span>Login</span>
             <form onSubmit={(e) => loginHandler(e)}>
                 <input type="text" placeholder="username or email" 

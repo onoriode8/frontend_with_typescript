@@ -8,7 +8,7 @@ interface Props {
     id: number
     title: string,
     description: string
-  }
+  } | null
 }
 
 const DeletePost = (props: Props) => {
@@ -20,8 +20,8 @@ const DeletePost = (props: Props) => {
             <form className="deletePost_container" onSubmit={(e) => deletePostHandler(e)}>
                 <p>You sure you want to delete ?</p>
                 <div>
-                    <p>Title: {props.pushPost.title}</p>
-                    <p>Description: {props.pushPost.description}</p>
+                    <p>Title: {props.pushPost?.title}</p>
+                    <p>Description: {props.pushPost?.description}</p>
                 </div>
                 <button type="submit">Delete Post</button>
             </form>

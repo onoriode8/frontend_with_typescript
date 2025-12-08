@@ -40,6 +40,8 @@ const Posts: React.FC = () => {
         }
     }
 
+    console.log("", postState)
+
     return (
         <div>
             {loading && <p>Loading...</p>}

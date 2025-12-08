@@ -3,10 +3,13 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
+import BackendURL from '../../util/config';
 import type { RootState } from '../../state-management/store/store'
 
 
 const useUpdate = () => {
+    // const id = localStorage.getItem("sessionId")
+
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
 
@@ -23,8 +26,10 @@ const useUpdate = () => {
         if(!pushPost.id) return
         try {
             setLoading(false)
-            const data: string = await axios.patch(`/user/update/post/${userState.id}/${pushPost.id}`, {
+            const data: string = await axios.patch(`${BackendURL}/posts/update/${userState.id}/${pushPost.id}`, {
                 title, description
+            }, {
+                withCredentials: true
             })
             console.log("DATA FROM FETCH POST HANDLER", data)
             setLoading(false)
@@ -34,11 +39,13 @@ const useUpdate = () => {
             })
         } catch (err) {
             setLoading(false)
-            setError("Something went wrong")
-            console.error("ERROR OCCURRED", err)
-            setTimeout(() => {
-                setError("")
-            })
+            if(axios.isAxiosError(err)) {
+                setError("Something went wrong")
+                console.error("ERROR OCCURRED", err)
+                setTimeout(() => {
+                    setError("")
+                })
+            }
         }
     }
 

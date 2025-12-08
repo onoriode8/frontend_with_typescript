@@ -3,9 +3,12 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 
+import BackendURL from '../../util/config';
 import type { RootState } from '../../state-management/store/store'
 
 const useDelete = () => {
+    // const id = localStorage.getItem("sessionId")
+
     const [error, setError] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -18,17 +21,22 @@ const useDelete = () => {
         if(!pushPost.id) return
         try {
             setLoading(false)
-            const data = await axios.delete(`/user/delete/post/${userState.id}/${pushPost.id}`)
+            // const userId = user.id ? user.id : id
+            const data = await axios.delete(`${BackendURL}/posts/delete/${userState.id}/${pushPost.id}`, {
+                withCredentials: true
+            });
             console.log("DATA FROM DELETE POST HANDLER", data)
             setLoading(false)
             navigate("/home");
         } catch (err) {
-            setLoading(false)
-            setError("Something went wrong")
-            console.error("ERROR OCCURRED", err)
-            setTimeout(() => {
-                setError("")
-            })
+            setLoading(false);
+            if(axios.isAxiosError(err)) {
+                setError(err.response?.data || "Something went wrong")
+                console.error("ERROR OCCURRED", err)
+                setTimeout(() => {
+                    setError("")
+                })
+            }
         }
     }
 

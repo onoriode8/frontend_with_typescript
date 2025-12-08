@@ -11,7 +11,7 @@ interface Props {
     id: number
     title: string,
     description: string
-  }
+  } | null
 }
 
 const Update: React.FC<Props> = (props) => {
@@ -30,12 +30,12 @@ const Update: React.FC<Props> = (props) => {
                 <form onSubmit={(e) => updatePostHandler(e)}>
                     <div>
                         <label>title</label>
-                        <input type="text" placeholder={`${props.pushPost.title}`} 
+                        <input type="text" placeholder={`${props.pushPost?.title}`} 
                             onChange={(e) => setTitleHandler(e)}/>
                     </div>
                     <div>
                         <label>description</label>
-                        <input type="text" placeholder={`${props.pushPost.description}`} 
+                        <input type="text" placeholder={`${props.pushPost?.description}`} 
                             onChange={(e) => setDescriptionHandler(e)} />
                     </div>
                     <button type="submit">Update Post</button>
