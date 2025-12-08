@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
+import BackendURL from '../../util/config';
 import { updateUser } from "../../state-management/createslice/user";
 import type { AppDispatch } from "../../state-management/store/store";
 
@@ -28,22 +29,34 @@ const useLogin = () => {
     const loginHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if(loading) return
+        if(userData.length < 4 || password.length < 5) return 
         try {
             setLoading(true)
-            const data = await axios.post("http://localhost:5000/user/login", {
+            const response = await axios.post(`${BackendURL}/login/user`, {
                 userData, password
+            }, {
+                withCredentials: true
             })
             setLoading(false)
-            console.log("SERVER_DATA FROM Login", data)
+            console.log("SERVER_DATA FROM Login", response)
+            const data = {
+                id: response.data.user.id, 
+                name: response.data.user.name, 
+                email: response.data.user.email, 
+                username: response.data.user.username,
+                posts: response.data.user.posts
+            }
             dispatch(updateUser(data))
+            localStorage.setItem("sessionId", response.data.user.id)
             navigate("/home")
-            window.location.reload()
         } catch(err) {
             setLoading(false)
-            setError("Something went wrong.")
-            setTimeout(() => {
-                setError("")
-            }, 3000);
+            if(axios.isAxiosError(err)) {
+                setError(err.response?.data)
+                setTimeout(() => {
+                    setError("")
+                }, 3000);
+            }
         }
     }
 
