@@ -48,16 +48,15 @@ const useRegister = () => {
             setLoading(false)
             console.log("SERVER_DATA FROM REGISTER", response)
             const data = {
-                id: response.data.user.id, 
-                name: response.data.user.name, 
-                email: response.data.user.email, 
-                username: response.data.user.username,
-                posts: response.data.user.posts
+                id: response.data.userData.id, 
+                name: response.data.userData.name, 
+                email: response.data.userData.email, 
+                username: response.data.userData.username,
+                posts: response.data.userData.posts
             }
             dispatch(updateUser(data))
-            localStorage.setItem("sessionId", response.data.user.id)
+            localStorage.setItem("sessionId", response.data.userData.id)
             navigate("/home")
-            // window.location.reload()
         } catch (err) {
             setLoading(false)
             if(axios.isAxiosError(err)) {

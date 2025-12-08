@@ -5,7 +5,7 @@ import './create.css'
 
 
 const Create = () => {
-    const { error, loading,
+    const { error, loading, message,
         setTitleHandler, setDescriptionHandler, createPostHandler } = useCreatePost()
     return (
         <div className='create_container'>
@@ -13,6 +13,7 @@ const Create = () => {
             {loading && <p style={{textAlign: "center"}}>Loading...</p>}
             {error.length !== 0 ? <p style={{textAlign: "center", color: "red"}}>{error}</p>: null} 
             <span>Create Post</span>
+            <span>{message}</span>
                 <div>
                     <label>Title</label>
                     <input type="text" onChange={(e) => setTitleHandler(e)}/>

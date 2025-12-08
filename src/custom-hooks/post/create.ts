@@ -13,6 +13,7 @@ const useCreatePost = () => {
 
     const [title, setTitle] = useState<string>("")
     const [error, setError] = useState<string>("")
+    const [message, setMessage] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
     const [description, setDescription] = useState<string>("")
 
@@ -33,16 +34,26 @@ const useCreatePost = () => {
         }
         try {
             setLoading(true)
-            const userId = userState.id ? userState.id : id
+            const userId = userState.id ? userState.id : id 
             const data = await axios.post(`${BackendURL}/create/posts/${userId}`, { // add user id to the request
                 title, description
             }, {
                 withCredentials: true
             })
-            console.log("DATA FROM CREATE POST HANDLER", data);
+            
+            if(data.status !== 200) {
+                throw new Error(data.data)
+            }
             setLoading(false)
+            setTitle('')
+            setDescription('')
+            setTimeout(() => {
+                setMessage("Created a post");
+            }, 3000);
         } catch(err) {
             setLoading(false)
+            setTitle('')
+            setDescription('')
             if(axios.isAxiosError(err)) {
                 setError(err.response?.data || "Something went wrong")
                 console.error("ERROR OCCURRED", err)
@@ -54,7 +65,7 @@ const useCreatePost = () => {
     }
 
     return {
-        error, loading,
+        error, loading, message,
         setTitleHandler, setDescriptionHandler, createPostHandler
     }
 }
