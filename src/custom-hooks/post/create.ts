@@ -47,8 +47,9 @@ const useCreatePost = () => {
             setLoading(false)
             setTitle('')
             setDescription('')
+            setMessage("Created a post");
             setTimeout(() => {
-                setMessage("Created a post");
+                setMessage("");
             }, 3000);
         } catch(err) {
             setLoading(false)

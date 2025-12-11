@@ -42,7 +42,6 @@ const userSlice = createSlice({
     reducers: {
         updateUser: (state, action: PayloadAction<UserAction>) => {
             if(!action.payload) return
-            console.log("ACTION_PAYLOAD", action.payload);
             const { id, name, email, username, posts } = action.payload
             state.user.id = id
             state.user.name = name

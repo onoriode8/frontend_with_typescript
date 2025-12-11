@@ -38,7 +38,6 @@ const useLogin = () => {
                 withCredentials: true
             })
             setLoading(false)
-            console.log("SERVER_DATA FROM Login", response)
             const data = {
                 id: response.data.user.id, 
                 name: response.data.user.name, 

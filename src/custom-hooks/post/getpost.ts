@@ -18,6 +18,7 @@ const useGetPosts = () => {
 
     
     useEffect(() => {
+        if(!userState.id) return
         const fetchPosts = async() => {
             try {
                 setLoading(false)
@@ -25,19 +26,14 @@ const useGetPosts = () => {
                 const response = await axios.get(`${BackendURL}/posts/${userId}`, {
                     withCredentials: true
                 })
-                console.log("response FROM FETCH POST HANDLER", response)
-                setLoading(false)
-                const data = {
-                    id: response.data.id,
-                    title: response.data.title,
-                    description: response.data.description
-                }
-                dispatch(getUserPosts(data)) //comment back on.
+
+                setLoading(false);
+
+                dispatch(getUserPosts(response.data.posts))
             } catch (err) {
                 setLoading(false)
                 if(axios.isAxiosError(err)) {
                     setError(err.response?.data || "Something went wrong")
-                    console.error("ERROR OCCURRED", err)
                     setTimeout(() => {
                         setError("")
                     })
@@ -45,7 +41,7 @@ const useGetPosts = () => {
             }
         }
         fetchPosts()
-    }, []);
+    }, [userState.id]);
 
     return {
         error, loading

@@ -34,9 +34,7 @@ const useUpdate = () => {
             console.log("DATA FROM FETCH POST HANDLER", data)
             setLoading(false)
             setMessage(data)
-            setTimeout(() => {
-                navigate('/home')
-            })
+            navigate('/home')
         } catch (err) {
             setLoading(false)
             if(axios.isAxiosError(err)) {

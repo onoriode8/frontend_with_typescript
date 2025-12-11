@@ -34,7 +34,6 @@ interface Props {
 }
 
 function App(pass: Props) {
-  // sessionStorage.removeItem('post')
   const id = localStorage.getItem("sessionId")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<{}>({})
@@ -43,17 +42,13 @@ function App(pass: Props) {
   const parsedData = sessionStorage.getItem('post');
   const pushPost: StorageProps | null = parsedData ? JSON.parse(parsedData) : null
 
-  // const postId = useSelector((p: RootState) => p.posts.pushPost)
   const user = useSelector((u: RootState) => u.users.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  console.log("APP STATE", user, pass)
-
   useEffect(() => {
     if(user.id) return
     const GetUserDataWhenAccessTokenExpires = async () => {
-      console.log("RUN")
       try {
         setIsLoading(true)
         const userId = user.id ? user.id : id
@@ -61,9 +56,8 @@ function App(pass: Props) {
             withCredentials: true
         })
 
-        console.log("RESPONSE FROM USE-EFFECT-APP", response)
         const data = {
-          id: response.data.data.userId, 
+          id: response.data.data.userId ? response.data.data.userId : response.data.data.id, 
           name: response.data.data.name, 
           email: response.data.data.email, 
           username: response.data.data.username, 
@@ -73,7 +67,6 @@ function App(pass: Props) {
         dispatch(updateUser(data))
       } catch(err: unknown) {
         setIsLoading(false);
-        console.log("ERROR ", err)
         if(axios.isAxiosError(err)) {
           setError({ data: err.response?.data, status: err.response?.status })
           if(err.response?.status === 401 && err.response?.data === "Not Authenticated") {
