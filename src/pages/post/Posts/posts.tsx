@@ -6,6 +6,8 @@ import useGetPosts from '../../../custom-hooks/post/getpost';
 import { pushPostHandler } from '../../../state-management/createslice/post'
 import type { RootState, AppDispatch } from "../../../state-management/store/store";
 
+import './posts.css';
+
 
 
 const Posts: React.FC = () => {
@@ -40,18 +42,36 @@ const Posts: React.FC = () => {
         }
     }
 
-    console.log("", postState)
+    let postsArray;
+    if(postState.length !== 0) {
+        const posts = postState.find(p => p);
+        postsArray = posts
+    }
 
     return (
-        <div>
+        <div className='post_style'>
             {loading && <p>Loading...</p>}
-                {error.length !== 0 ? <p>{error}</p>: null} 
-                {postState.length !== 0 ? postState.map(p => <PostList key={p.id} 
-                    id={p.id} title={p.title} description={p.description} 
-                    pushIdToReducerHandler={pushIdToReducerHandler}
-            />) : null}
+                {error.length !== 0 ? <p>{error}</p>: null}
+                {postsArray !== undefined ? postsArray.flatMap(p => 
+                    <PostList key={p.id} creatorId={p.creatorId}
+                        id={p.id} title={p.title} description={p.description} 
+                        pushIdToReducerHandler={pushIdToReducerHandler} />)
+                 : <p>Your Posts will Appear Here!</p>
+                }
         </div>
     );
 }
 
 export default Posts;
+
+
+{/* {postState.length !== 0 ? postState.flatMap((p) => {
+                    console.log("map post", p, p.title, p.description, p.id)
+                    { p.map(posts => <PostList key={posts.id} creatorId={posts.creatorId} p={posts}
+                        id={posts.id} title={posts.title} description={posts.description} 
+                        pushIdToReducerHandler={pushIdToReducerHandler} />)} */}
+
+                    {/* <PostList key={p.id} creatorId={p.creatorId} p={p}
+                    id={p.id} title={p.title} description={p.description} 
+                    pushIdToReducerHandler={pushIdToReducerHandler} />
+                })  */}
