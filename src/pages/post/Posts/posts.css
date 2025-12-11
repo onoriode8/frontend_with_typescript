@@ -1,0 +1,10 @@
+.post_style {
+    margin-top: 100px; 
+    text-align: center;
+}
+
+@media(max-width: 490px) {
+    .post_style {
+        margin-top: 250px; 
+    }
+}
