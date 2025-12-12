@@ -23,13 +23,6 @@ const DeletePost = React.lazy(() => import("./pages/post/deletePost/deletePost")
 const UpdatePost = React.lazy(() => import("./pages/post/updatePost/updatePost"))
 
 
-interface StorageProps {
-  id: number
-  title: string,
-  description: string
-}
-
-
 function App() {
   const id = localStorage.getItem("sessionId")
   const sessionPushPostData = JSON.parse(sessionStorage.getItem("push-posts"));

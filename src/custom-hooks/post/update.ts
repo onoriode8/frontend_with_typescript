@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
-import BackendURL from '../../util/config';
 import type { RootState } from '../../state-management/store/store'
 
 
@@ -13,7 +12,7 @@ const useUpdate = () => {
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
 
-    const [error, setError] = useState<string>("")
+    const [error, setError] = useState<unknown>()
     const [message, setMessage] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -28,7 +27,7 @@ const useUpdate = () => {
         try {
 
             setLoading(true)
-            const data: string = await axios.patch(`${process.env.REACT_APP_BackendURL}/posts/update/${userState.id}/${postId}`, {
+            const data = await axios.patch(`${process.env.REACT_APP_BackendURL}/posts/update/${userState.id}/${postId}`, {
                 title, description
             }, {
                 withCredentials: true
@@ -42,7 +41,7 @@ const useUpdate = () => {
             setTimeout(() => {
                 navigate('/home');
             }, 3000);
-        } catch (err) {
+        } catch (err: unknown) {
             setLoading(false)
             setTitle("")
             setDescription("")

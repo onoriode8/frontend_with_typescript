@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
-import BackendURL from '../../util/config';
 import { updateUser } from "../../state-management/createslice/user";
 import type { AppDispatch } from "../../state-management/store/store";
 

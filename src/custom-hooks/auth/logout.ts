@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
-import BackendURL from '../../util/config'
 import type { RootState } from '../../state-management/store/store';
 
 

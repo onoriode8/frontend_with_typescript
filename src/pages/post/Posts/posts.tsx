@@ -14,8 +14,7 @@ const Posts: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    const postState = useSelector((p: RootState) => p.posts.posts)
-    const pushPostState = useSelector((p: RootState) => p.posts.pushPost)
+    const postState = useSelector((p: RootState) => p.posts.posts);
 
     const { error, loading } = useGetPosts();
 
@@ -55,8 +54,9 @@ const Posts: React.FC = () => {
         <div className='post_style'>
             {loading && <p>Loading...</p>}
                 {error.length !== 0 ? <p>{error}</p>: null}
-                {postsArray !== undefined ? postsArray.flatMap(p => 
-                    <PostList key={p.id} creatorId={p.creatorId}
+                {postsArray.length !== 0 ? postsArray.flatMap(p => 
+                    <PostList key={p.id} 
+                        // creatorId={p.creatorId}
                         id={p.id} title={p.title} description={p.description} 
                         pushIdToReducerHandler={pushIdToReducerHandler} />)
                  : <p>Your Posts will Appear Here!</p>

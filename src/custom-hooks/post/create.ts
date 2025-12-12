@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
-import BackendURL from '../../util/config';
 import type { RootState } from '../../state-management/store/store';
 
 

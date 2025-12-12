@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import BackendURL from '../../util/config';
 import type { AppDispatch, RootState } from '../../state-management/store/store';
 import { getUserPosts } from '../../state-management/createslice/post';
 

@@ -3,13 +3,12 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
 
-import BackendURL from '../../util/config';
 import type { RootState } from '../../state-management/store/store'
 
 const useDelete = () => {
     const sessionPushPostData = JSON.parse(sessionStorage.getItem("push-posts"));
 
-    const [error, setError] = useState<string>("")
+    const [error, setError] = useState<unknown>()
     const [loading, setLoading] = useState<boolean>(false)
 
     const navigate = useNavigate()
@@ -28,7 +27,7 @@ const useDelete = () => {
             
             setLoading(false)
             navigate("/home");
-        } catch (err) {
+        } catch (err: unknown) {
             setLoading(false);
             if(axios.isAxiosError(err)) {
                 setError(err.response?.data || "Something went wrong")
