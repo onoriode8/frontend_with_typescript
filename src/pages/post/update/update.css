@@ -13,7 +13,9 @@
 .updatePost_container form input {
     width: 350px;
     outline: none;
+    margin-top: 10px;
     padding-top: 15px;
+    padding-left: 8px;
     border-radius: 8px;
     margin-bottom: 30px;
     padding-bottom: 15px;

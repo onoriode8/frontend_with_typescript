@@ -7,7 +7,7 @@ import BackendURL from '../../util/config';
 import type { RootState } from '../../state-management/store/store'
 
 const useDelete = () => {
-    // const id = localStorage.getItem("sessionId")
+    const sessionPushPostData = JSON.parse(sessionStorage.getItem("push-posts"));
 
     const [error, setError] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
@@ -18,21 +18,20 @@ const useDelete = () => {
 
     const deletePostHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(!pushPost.id) return
+        if(!pushPost.id && !sessionPushPostData.id) return
+        const postId = pushPost.id !== null ? pushPost.id : sessionPushPostData.id
         try {
-            setLoading(false)
-            // const userId = user.id ? user.id : id
-            const data = await axios.delete(`${BackendURL}/posts/delete/${userState.id}/${pushPost.id}`, {
+            setLoading(false);
+            const data = await axios.delete(`${process.env.REACT_APP_BackendURL}/posts/delete/${userState.id}/${postId}`, {
                 withCredentials: true
             });
-            console.log("DATA FROM DELETE POST HANDLER", data)
+            
             setLoading(false)
             navigate("/home");
         } catch (err) {
             setLoading(false);
             if(axios.isAxiosError(err)) {
                 setError(err.response?.data || "Something went wrong")
-                console.error("ERROR OCCURRED", err)
                 setTimeout(() => {
                     setError("")
                 })

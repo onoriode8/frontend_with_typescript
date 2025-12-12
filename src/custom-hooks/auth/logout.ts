@@ -10,7 +10,7 @@ import type { RootState } from '../../state-management/store/store';
 function useLogoutHandler () {
     const id = localStorage.getItem("sessionId")
 
-    const [error, setError] = useState<uknown>()
+    const [error, setError] = useState<unknown>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ function useLogoutHandler () {
         try {
             setIsLoading(true);
             const userId = user.id ? user.id : id
-            const response = await axios.get(`${BackendURL}/logout/user/${userId}`, {
+            const response = await axios.get(`${process.env.REACT_APP_BackendURL}/logout/user/${userId}`, {
                 withCredentials: true
             });
             
@@ -33,7 +33,7 @@ function useLogoutHandler () {
             localStorage.removeItem("sessionId")
             navigate("/")
             window.location.reload()
-        } catch (error) {
+        } catch (error: unknown) {
             setIsLoading(false);
             if(axios.isAxiosError(error)) {
                 setError(error.message)
@@ -41,7 +41,7 @@ function useLogoutHandler () {
         }
     }
 
-    return { logoutUserHandler }
+    return { isLoading, logoutUserHandler }
 }
 
 export default useLogoutHandler

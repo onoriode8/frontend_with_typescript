@@ -35,7 +35,7 @@ const useCreatePost = () => {
         try {
             setLoading(true)
             const userId = userState.id ? userState.id : id 
-            const data = await axios.post(`${BackendURL}/create/posts/${userId}`, { // add user id to the request
+            const data = await axios.post(`${process.env.REACT_APP_BackendURL}/create/posts/${userId}`, {
                 title, description
             }, {
                 withCredentials: true
@@ -57,7 +57,6 @@ const useCreatePost = () => {
             setDescription('')
             if(axios.isAxiosError(err)) {
                 setError(err.response?.data || "Something went wrong")
-                console.error("ERROR OCCURRED", err)
                 setTimeout(() => {
                     setError("")
                 })

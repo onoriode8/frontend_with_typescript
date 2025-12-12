@@ -8,7 +8,7 @@ import type { RootState } from '../../state-management/store/store'
 
 
 const useUpdate = () => {
-    // const id = localStorage.getItem("sessionId")
+    const sessionPushPostData = JSON.parse(sessionStorage.getItem("push-posts"));
 
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
@@ -22,27 +22,35 @@ const useUpdate = () => {
     const navigate = useNavigate();
 
     const updatePostHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if(!pushPost.id) return
+        e.preventDefault();
+        if(!pushPost.id && !sessionPushPostData.id) return
+        const postId = pushPost.id !== null ? pushPost.id : sessionPushPostData.id
         try {
-            setLoading(false)
-            const data: string = await axios.patch(`${BackendURL}/posts/update/${userState.id}/${pushPost.id}`, {
+
+            setLoading(true)
+            const data: string = await axios.patch(`${process.env.REACT_APP_BackendURL}/posts/update/${userState.id}/${postId}`, {
                 title, description
             }, {
                 withCredentials: true
             })
-            console.log("DATA FROM FETCH POST HANDLER", data)
+
             setLoading(false)
-            setMessage(data)
-            navigate('/home')
+            if(data.data.status !== 200 && data.statusText !== "OK") {
+                throw new Error("Failed to update. Please try again shortly.");
+            }
+            setMessage("Updated post")
+            setTimeout(() => {
+                navigate('/home');
+            }, 3000);
         } catch (err) {
             setLoading(false)
+            setTitle("")
+            setDescription("")
             if(axios.isAxiosError(err)) {
-                setError("Something went wrong")
-                console.error("ERROR OCCURRED", err)
+                setError("Please try again shortly.")
                 setTimeout(() => {
                     setError("")
-                })
+                }, 3000)
             }
         }
     }

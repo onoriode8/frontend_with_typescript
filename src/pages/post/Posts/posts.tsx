@@ -20,29 +20,32 @@ const Posts: React.FC = () => {
     const { error, loading } = useGetPosts();
 
 
-    const pushIdToReducerHandler = (id: number, path: string) => {
-        console.log("clicked", id, path)
+    const pushIdToReducerHandler = (id: number, title: string, description: string, path: string) => {
         const postId = id
         if(path === "/update") {
             const data = {
                 id: postId,
-                title: pushPostState.title,
-                description: pushPostState.description
+                title: title,
+                description: description
             }
+            
+            sessionStorage.setItem("push-posts", JSON.stringify(data));
             dispatch(pushPostHandler(data))
             navigate(`/update/${postId}`)
         } else {
             const data = {
                 id: postId,
-                title: pushPostState.title,
-                description: pushPostState.description
+                title: title,
+                description: description,
             }
+            
+            sessionStorage.setItem("push-posts", JSON.stringify(data));
             dispatch(pushPostHandler(data))
             navigate(`/delete/${postId}`);
         }
     }
 
-    let postsArray;
+    let postsArray = [];
     if(postState.length !== 0) {
         const posts = postState.find(p => p);
         postsArray = posts
@@ -63,15 +66,3 @@ const Posts: React.FC = () => {
 }
 
 export default Posts;
-
-
-{/* {postState.length !== 0 ? postState.flatMap((p) => {
-                    console.log("map post", p, p.title, p.description, p.id)
-                    { p.map(posts => <PostList key={posts.id} creatorId={posts.creatorId} p={posts}
-                        id={posts.id} title={posts.title} description={posts.description} 
-                        pushIdToReducerHandler={pushIdToReducerHandler} />)} */}
-
-                    {/* <PostList key={p.id} creatorId={p.creatorId} p={p}
-                    id={p.id} title={p.title} description={p.description} 
-                    pushIdToReducerHandler={pushIdToReducerHandler} />
-                })  */}

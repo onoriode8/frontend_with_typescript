@@ -30,12 +30,9 @@ const postSlice = createSlice({
     initialState: postState,
     reducers: {
         getUserPosts: (state, action: PayloadAction<PostSliceProps>) => {
-            console.log("ACTION", action)
             state.posts.push(action.payload)
         },
         pushPostHandler: (state, action: PayloadAction<PostSliceProps>) => {
-        console.log("reducer from pushPostHandler", action)
-            if(!state.pushPost.id) return
             const { id, title, description } = action.payload
             state.pushPost.id = id;
             state.pushPost.title = title

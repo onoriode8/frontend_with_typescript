@@ -40,13 +40,12 @@ const useRegister = () => {
         if(name.length < 4 || password.length < 5 || email.length < 8 || username.length < 4) return 
         try {
             setLoading(true)
-            const response = await axios.post(`${BackendURL}/create/account/user`, {
+            const response = await axios.post(`${process.env.REACT_APP_BackendURL}/create/account/user`, {
                 name, email, username, password
             }, {
                 withCredentials: true
             })
             setLoading(false)
-            console.log("SERVER_DATA FROM REGISTER", response)
             const data = {
                 id: response.data.userData.id, 
                 name: response.data.userData.name, 

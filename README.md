@@ -1,1 +1,7 @@
 #### A PROJECT BUILT WITH TYPESCRIPT AND REACT FOR FRONTEND APP
+#### SERVER WAS BUILT WITH NODEJS, EXPRESS, PRISMA ORM, ZOD, OWASP SECURITY, MYSQL, DOCKER AND RENDER FOR HOSTING WEB SERVICE
+
+
+###### Application Authentication
+###### 1. userName: prisma_guide
+###### 2. password: password

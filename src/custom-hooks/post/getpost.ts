@@ -23,7 +23,7 @@ const useGetPosts = () => {
             try {
                 setLoading(false)
                 const userId = userState.id ? userState.id : id
-                const response = await axios.get(`${BackendURL}/posts/${userId}`, {
+                const response = await axios.get(`${process.env.REACT_APP_BackendURL}/posts/${userId}`, {
                     withCredentials: true
                 })
 

@@ -8,7 +8,8 @@ import store from './state-management/store/store.ts'
 import type { RootState } from './state-management/store/store';
 
 export default function Render() {
-  const user = useSelector((u: RootState) => u.users.user)
+  useSelector((u: RootState) => u.users.user)
+  useSelector((p: RootState) => p.posts.pushPost);
 }
 
 

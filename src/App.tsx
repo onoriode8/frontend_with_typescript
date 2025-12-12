@@ -29,19 +29,17 @@ interface StorageProps {
   description: string
 }
 
-interface Props {
-  pass: () => void
-}
 
-function App(pass: Props) {
+function App() {
   const id = localStorage.getItem("sessionId")
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<{}>({})
+  const sessionPushPostData = JSON.parse(sessionStorage.getItem("push-posts"));
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<unknown>()
 
   const parsedData = sessionStorage.getItem('post');
-  const pushPost: StorageProps | null = parsedData ? JSON.parse(parsedData) : null
 
+  const pushPost = useSelector((p: RootState) => p.posts.pushPost);
   const user = useSelector((u: RootState) => u.users.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -81,11 +79,12 @@ function App(pass: Props) {
     GetUserDataWhenAccessTokenExpires();
   }, [user.id])
 
+  const pushPostData = !pushPost === null ? pushPost : sessionPushPostData
+  const pushPostDataId = !pushPost.id === null ? pushPost.id : sessionPushPostData.id
+
   
   return (
     <React.Fragment>
-      {/* {error.length !== 0 ? <Loader /> : null} */}
-      {/* {error.length !== 0 ? <p style={{color: "red", textAlign: "center", marginTop: "150px"}}>{error.data}</p> : null} */}
       {isLoading && <Loader />}
       {user.id ? <Layout userId={user.id} /> : null}
       {!user.id ? <Routes>
@@ -106,11 +105,13 @@ function App(pass: Props) {
         <Route path={`/update`}
           element={<Suspense fallback={<Loader />}><UpdatePost /></Suspense>} />
 
-        <Route path={`/update/${pushPost?.id}`} 
-          element={<Suspense fallback={<Loader />}><Update pushPost={pushPost} /></Suspense>} />
+        <Route path={`/update/${pushPostDataId}`} 
+          element={<Suspense fallback={<Loader />}>
+            <Update pushPost={pushPostData} /></Suspense>} />
 
-        <Route path={`/delete/${pushPost?.id}`}
-          element={<Suspense fallback={<Loader />}><Delete pushPost={pushPost} /></Suspense>} />
+        <Route path={`/delete/${pushPostDataId}`}
+          element={<Suspense fallback={<Loader />}>
+            <Delete pushPost={pushPostData} /></Suspense>} />
       </Routes>}
     </React.Fragment>
   ) 
