@@ -28,9 +28,7 @@ function App() {
   const sessionPushPostData = JSON.parse(sessionStorage.getItem("push-posts"));
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<unknown>()
-
-  const parsedData = sessionStorage.getItem('post');
+  // const [error, setError] = useState<unknown>()
 
   const pushPost = useSelector((p: RootState) => p.posts.pushPost);
   const user = useSelector((u: RootState) => u.users.user)
@@ -59,13 +57,13 @@ function App() {
       } catch(err: unknown) {
         setIsLoading(false);
         if(axios.isAxiosError(err)) {
-          setError({ data: err.response?.data, status: err.response?.status })
+          // setError({ data: err.response?.data, status: err.response?.status })
           if(err.response?.status === 401 && err.response?.data === "Not Authenticated") {
               localStorage.removeItem("sessionId")
               navigate("/")
           }
         }
-        setError({ data: err.response?.data, status: err.response?.status })
+        // setError({ data: err.response?.data, status: err.response?.status })
       }
     }
 

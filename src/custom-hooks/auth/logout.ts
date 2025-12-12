@@ -9,7 +9,7 @@ import type { RootState } from '../../state-management/store/store';
 function useLogoutHandler () {
     const id = localStorage.getItem("sessionId")
 
-    const [error, setError] = useState<unknown>()
+    // const [error, setError] = useState<unknown>()
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ function useLogoutHandler () {
         } catch (error: unknown) {
             setIsLoading(false);
             if(axios.isAxiosError(error)) {
-                setError(error.message)
+                // setError(error.message)
             }
         }
     }

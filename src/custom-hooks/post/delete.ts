@@ -21,7 +21,7 @@ const useDelete = () => {
         const postId = pushPost.id !== null ? pushPost.id : sessionPushPostData.id
         try {
             setLoading(false);
-            const data = await axios.delete(`${process.env.REACT_APP_BackendURL}/posts/delete/${userState.id}/${postId}`, {
+            await axios.delete(`${process.env.REACT_APP_BackendURL}/posts/delete/${userState.id}/${postId}`, {
                 withCredentials: true
             });
             
@@ -32,7 +32,7 @@ const useDelete = () => {
             if(axios.isAxiosError(err)) {
                 setError(err.response?.data || "Something went wrong")
                 setTimeout(() => {
-                    setError("")
+                    setError()
                 })
             }
         }

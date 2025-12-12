@@ -46,9 +46,9 @@ const useUpdate = () => {
             setTitle("")
             setDescription("")
             if(axios.isAxiosError(err)) {
-                setError("Please try again shortly.")
+                setError(err?.message || err?.response.data)
                 setTimeout(() => {
-                    setError("")
+                    setError()
                 }, 3000)
             }
         }
